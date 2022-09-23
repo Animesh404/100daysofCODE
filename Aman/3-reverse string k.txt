@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string reverseStr(string s, int k) {
+        int i=s.size();
+        while(i>0){
+            int j=s.size()-i;
+            if(i>=k){
+            reverse(s.begin()+j,s.begin()+j+k);
+            i=i-2*k;
+            }
+            else{
+                reverse(s.begin()+j,s.end());
+            i=0;
+            }
+        }
+        return s;
+    }
+};
