@@ -1,0 +1,64 @@
+class Solution {
+public:
+long long merge(vector<int> &num,long long s,long long e){
+        long long  mid=(s+e)/2;
+        long long  len1=mid-s+1;
+        long long  len2=e-mid;
+        long long v1[len1];
+        long long v2[len2];
+         long long k = s;
+        for(int i=0;i<len1;i++){
+            v1[i]=num[k++];
+        }
+        k = mid+1;
+        for(int i=0;i<len2;i++){
+            v2[i]=num[k++];
+        }
+       long long i = 0;
+        long long j = 0,global=0;
+        k = s;
+        while(i<len1 && j<len2){
+            if(v1[i]<v2[j]){
+                num[k++]=v1[i++];
+            }
+            else{
+                num[k++]=v2[j++];
+                global+=(len1-i);
+            }
+        }
+        while(i<len1){
+            num[k++]=v1[i++];
+        }
+        while(j<len2){
+            num[k++]=v2[j++];
+        }
+        return global;
+    }
+    long long mergeSort(vector<int>&nums,long long s,long long e){
+       long long mid;
+        long long res=0;
+        if(s<e){
+            mid=(s+e)/2;
+       res+= mergeSort(nums,s,mid);
+       res+= mergeSort(nums,mid+1,e);
+       res+= merge(nums,s,e);
+        }return res; 
+    }
+    long long countLocalInversions(vector<int>& nums, long long n) {
+        long long count = 0;
+        for(int i = 0; i < n-1; i++) {
+            if(nums[i] > nums[i+1])
+                count++;
+        }
+        return count;
+    }
+    bool isIdealPermutation(vector<int>& nums) {
+        long long n = nums.size();
+        long long local = countLocalInversions(nums, n);
+        long long ginverse=mergeSort(nums,0,nums.size()-1);
+        if(local==ginverse){
+            return true;
+        }
+        return false;
+}
+};

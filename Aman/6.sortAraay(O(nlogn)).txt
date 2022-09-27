@@ -1,0 +1,53 @@
+class Solution {
+public:
+    void merge(vector<int>& num,int s,int e){
+        int mid = (s+e)/2;
+        int len1 = mid - s + 1;
+        int len2 = e - mid;
+        vector<int>v1(len1,0);
+        vector<int>v2(len2,0);
+        int k = s;
+        for(int i=0;i<len1;i++){
+            v1[i]=num[k++];
+        }
+        k = mid+1;
+        for(int i=0;i<len2;i++){
+            v2[i]=num[k++];
+        }
+        int i = 0;
+        int j = 0;
+        k = s;
+        while(i<len1 && j<len2){
+            if(v1[i]<v2[j]){
+                num[k++]=v1[i++];
+            }
+            else{
+                num[k++]=v2[j++];
+            }
+        }
+        while(i<len1){
+            num[k++]=v1[i++];
+        }
+        while(j<len2){
+            num[k++]=v2[j++];
+        }
+        v1.clear();
+        v2.clear();
+    }
+    void mergeSort(vector<int>& num,int s,int e){
+        
+        if(s>=e){
+            return;
+        }
+        int mid=(s+e)/2;
+        mergeSort(num,s,mid);
+        mergeSort(num,mid+1,e);
+        merge(num,s,e);
+    } 
+    vector<int> sortArray(vector<int>& nums) {
+        int s=0;
+        int e=nums.size()-1;
+        mergeSort(nums,s,e);
+        return nums;
+    }
+};
