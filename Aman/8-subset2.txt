@@ -1,0 +1,41 @@
+class Solution {
+public:
+    // void subset(vector<int> &nums,set<vector<int>> &s,vector<int>ss,int ind,int n){
+    //     if(ind==n){
+    //         sort(ss.begin(),ss.end());
+    //         s.insert(ss);
+    //         return;
+    //     }
+    //     ss.push_back(nums[ind]);
+    //     subset(nums,s,ss,ind+1,n);
+    //     ss.pop_back();
+    //     subset(nums,s,ss,ind+1,n);
+    // }
+    void subset(vector<int> &nums,vector<int> &s,vector<vector<int>> &ans,int ind,int n){
+        ans.push_back(s);
+        for(int i=ind;i<n;i++){
+            if(i != ind && nums[i]==nums[i-1]){
+                continue;
+            }
+            s.push_back(nums[i]);
+            subset(nums,s,ans,i+1,n);
+            s.pop_back();
+        }
+    }
+     
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        // set<vector<int>>s;
+        // vector<int>ss;
+        // subset(nums,s,ss,0,nums.size());
+        // vector<vector<int>>ans;
+        // for(auto it=s.begin();it!=s.end();it++){
+        //     ans.push_back(*it);
+        // }
+        // return ans;
+        vector<vector<int>>ans;
+        vector<int>s;
+        sort(nums.begin(),nums.end());
+        subset(nums,s,ans,0,nums.size());
+        return ans;
+  }
+};

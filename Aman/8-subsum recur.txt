@@ -1,0 +1,19 @@
+class Solution
+{
+public:
+    void recursion(int ind,int sum,vector<int> &arr,int n,vector<int> &ans){
+        if(ind==n){
+            ans.push_back(sum);
+            return;
+        }
+        recursion(ind+1,sum+arr[ind],arr,n,ans);
+        recursion(ind+1,sum,arr,n,ans);
+    }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        // Write Your Code here
+        vector<int>ans;
+        recursion(0,0,arr,N,ans);
+        return ans;
+    }
+};
