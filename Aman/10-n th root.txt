@@ -1,0 +1,20 @@
+#include <bits/stdc++.h> 
+double findNthRootOfM(int n, int m) {
+	// Write your code here.
+    double low=1,high=m;
+    double eps=1e-7;
+    while((high-low)>eps){
+        double mid=(high+low)/2.0;
+        double temp=1.0;;
+        for(int i=1;i<=n;i++){
+            temp=temp*mid;
+        }
+        if(temp<m){
+            low=mid;
+        }
+        else{
+            high=mid;
+        }
+    }
+    return low;
+}
