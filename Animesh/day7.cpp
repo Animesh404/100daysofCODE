@@ -18,3 +18,23 @@ int main(){
     cout<<"\n"<<bSearch(l,h,a);
     return 0; 
 }
+// WoodCutter SPOJ
+int l=0,r=*max_element(a,a+n),ans=0; 
+
+    while(l<=r){
+        int mid = l+(r-l)/2;
+        int res=0;
+        for(int i=0;i<n;i++){
+            if(a[i]>mid){
+                res+=a[i]-mid;
+            }
+        }
+        if(res>=m){ 
+            ans=mid;
+            l=mid+1;
+        }else{
+            r=mid-1;
+        }
+    }
+    cout<<ans;
+
